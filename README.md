@@ -1,5 +1,5 @@
 
-# SecurityAuthorization for Meteor
+# SecurityAuthorization for Meteor [![Build Status](https://travis-ci.org/aumel/meteor-security-authorization.svg)](https://travis-ci.org/aumel/meteor-security-authorization)
 
 An authorization security system with voters for Meteor compatible with built-in accounts package and `alanning:roles` package.
 
