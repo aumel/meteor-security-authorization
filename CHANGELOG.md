@@ -1,5 +1,5 @@
-CHANGELOG for SecurityAcl
-=========================
+CHANGELOG for SecurityAuthorization
+===================================
 
 This changelog references the relevant changes (bug, security fixes and new features) done.
 
