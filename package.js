@@ -5,7 +5,7 @@ Package.describe({
   // Brief, one-line summary of the package.
   summary: 'An authorization security system with voters.',
   // URL to the Git repository containing the source code for this package.
-  git: '',
+  git: 'https://github.com/aumel/meteor-security-authorization',
   // By default, Meteor will default to using README.md for documentation.
   // To avoid submitting documentation, set this field to null.
   documentation: 'README.md'
