@@ -31,7 +31,15 @@ It is inspired by the PHP Symfony framework and the Java Spring framework.
 $ meteor add aumel:security-authorization
 ```
 
-security-authorization package is compatible with Meteor `v1.2.x`.
+`security-authorization` package is compatible with Meteor `v1.2.x`.
+
+
+To set your authorization logic, you need ECMAScript 2015 features (e.g. class concept). By default, the `ecmascript` package is already installed when you create a new project with Meteor `v1.2.x`. If not, install it!
+
+```sh
+$ meteor add ecmascript
+```
+
 
 <a name="overview">
 ## Overview
@@ -195,7 +203,7 @@ By default, a `RoleVoter` is added to SecurityAuthorization for managing role.
 
 Your role system must respect some rules to be compatible with `RoleVoter`:
 
-* The user instance must have a roles property (e.i. `user.roles`).
+* The user instance must have a roles property (i.e. `user.roles`).
 * The `user.roles` must be an array (e.g. `['ROLE_ADMIN']`).
 * A role must begin with a prefix `ROLE_` in uppercase.
 
