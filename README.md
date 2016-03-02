@@ -128,6 +128,9 @@ class TaskVoter extends AbstractVoter {
         'function'  === subject.getDomainObjectName &&
         'tasks' !== subject.getDomainObjectName()) {
       return false;
+    } else if('undefined' === typeof subject ||
+              'function' !== typeof subject.getDomainObjectName) {
+      return false;
     }
 
     return true;
