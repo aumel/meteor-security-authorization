@@ -114,26 +114,27 @@ class TaskVoter extends AbstractVoter {
       return false;
     }
 
-    // if no subject (null), return false
-    if (null === subject) {
+    // if no subject (null or undefined), return false
+    if (null === subject || 'undefined' !== typeof subject) {
+      return false;
+    }
+
+    // if getDomainObjectName does not exist for the subject, return false
+    // This assumes that the subject has a getDomainObjectName() function
+    // to get the object name.
+    // Read the section 'Domain object name' in the README for more information.
+    if (typeof subject.getDomainObjectName !== 'function') {
       return false;
     }
 
     // only vote on Task objects inside this voter
-
-    // This assumes that the subject has a getDomainObjectName() function
-    // to get the object name.
     // Read the section 'Domain object name' in the README for more information.
-    if ('undefined' !== typeof subject &&
-        'function'  === subject.getDomainObjectName &&
-        'tasks' !== subject.getDomainObjectName()) {
-      return false;
-    } else if('undefined' === typeof subject ||
-              'function' !== typeof subject.getDomainObjectName) {
-      return false;
+    if ('tasks' === subject.getDomainObjectName()) {
+      return true;
     }
 
-    return true;
+    // otherwise, always return false
+    return false;
   }
 
   _voteOnAttribute(attribute, subject, user) {
