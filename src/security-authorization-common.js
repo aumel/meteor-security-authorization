@@ -12,7 +12,6 @@ SecurityAuthorizationCommon = class SecurityAuthorizationCommon {
 
     this._strategy = null;
     this._voters = [];
-    //this._authenticatedUser = null;
 
     // By default, a RoleVoter is added.
     this.addRoleVoter();
@@ -73,22 +72,4 @@ SecurityAuthorizationCommon = class SecurityAuthorizationCommon {
 
     return authorizationChecker.isGranted(attributes, object);
   }
-
-  /**
-  * Set the authenticated user.
-  *
-  * @param {Object}  user
-  *
-  * @throws invalid-argument-exception
-  */
-  /*setAuthenticatedUser(user) {
-    if (typeof user === 'undefined') {
-      throw new Meteor.Error(
-        'invalid-argument-exception',
-        'The user cannot be undefined.');
-    }
-
-    this._authenticatedUser = user;
-  }*/
-
 };
