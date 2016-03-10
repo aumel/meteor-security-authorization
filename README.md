@@ -9,6 +9,7 @@ It is inspired by the PHP Symfony framework and the Java Spring framework.
 ## Table of contents
 
 * [Installation](#installation)
+* [Version 2.x](#version2)
 * [Overview](#overview)
 * [How to use voters to check users permissions](#how-to-use-voters)
   * [Checking for access](#checking-access)
@@ -16,7 +17,6 @@ It is inspired by the PHP Symfony framework and the Java Spring framework.
   * [Configuring the voter](#configuring-voter)
   * [Checking for roles](#checking-for-roles)
   * [Changing the strategy](#changing-the-strategy)
-* [How to use in the client-side](#how-to-use-client-side)
 * [How to use your own user system](#how-to-use-your-own-user-system)
 * [SecurityAuthorization API](#security-authorization-api)
 * [Domain object name](#domain-object-name)
@@ -39,7 +39,17 @@ To set your authorization logic, you need ECMAScript 2015 features (e.g. class c
 ```sh
 $ meteor add ecmascript
 ```
+<a name="version2">
+## Version 2.x
 
+
+Changelog:
+
+  * `SecurityAuthorization.setAuthenticatedUser` is removed from the API.
+  * `SecurityAuthorization.isGranted` function accepts the user as optional parameter when you don’t use the built-in account package of Meteor.
+  * The ui-helper `isGranted` for Blaze is removed.
+
+**Note:** Thanks to @monbro for the enhancement about `setAuthenticatedUser`.
 
 <a name="overview">
 ## Overview
@@ -260,54 +270,17 @@ SecurityAuthorization.setStrategy('consensus');
 // ...
 ```
 
-<a name="how-to-use-client-side">
-## How to use in the client-side
-
-As the server-side, the client-side has access to all functions of SecurityAuthorization with the addition of a `isGranted` Blaze helper.
-
-**IMPORTANT:** The access to sensitive data must always be controlled on the server-side. Any client-side helpers cannot be trusted. Those helpers can be used for accessing to some templates if the access to data is restricted to the server-side.
-
-
-A user with `ROLE_ADMIN` can access to editor elements for all tasks:
-```html
-<template name="edit_task">
-  {{#if isGranted 'ROLE_ADMIN'}}
-    {{> editor}}  
-  {{/if}}
-</template>
-```
-
-A user with permissions *edit* on *Task* object can access to editor elements:
-```html
-<template name="edit_task">
-  {{#if isGranted 'edit' task }}
-    {{> editor}}
-  {{/if}}
-</template>
-```
 
 <a name="how-to-use-your-own-user-system">
 ## How to use your own user system
 
 If you don't use the built-in accounts package of Meteor or if you use a Model layer over the `Meteor.user()`, SecurityAuthorization provides a solution to hold those situations.
 
-If you have your own users system, add manually the authenticated user to SecurityAuthorization with `setAuthenticatedUser` function (server-side).
+If you have your own users system, pass manually the authenticated user as parameter in `SecurityAuthorization.isGranted` function (server-side).
 
 ```js
-SecurityAuthorization.setAuthenticatedUser(user);
+SecurityAuthorization.isGranted('view', task, user);
 ```
-
-For the client-side, you can add the user as parameter in the helper `isGranted`.
-
-```html
-<template name="edit_task">
-  {{#if isGranted 'edit' task user }}
-    {{> editor}}
-  {{/if}}
-</template>
-```
-
-**IMPORTANT:** The access to sensitive data must always be controlled on the server-side. Any client-side helpers cannot be trusted. Those helpers can be used for accessing to some templates if the access to data is restricted to the server-side.
 
 <a name="security-authorization-api">
 ## SecurityAuthorization API
@@ -356,7 +329,7 @@ SecurityAuthorization.addVoter(yourVoter);
 ```
 
 
-### .isGranted(attributes, object = null)
+### .isGranted(attributes, object = null, user = null)
 
 Checks if the attributes are granted against the current authenticated user
 and optionally supplied object.
@@ -365,12 +338,10 @@ and optionally supplied object.
 SecurityAuthorization.isGranted('view', task);
 ```
 
-### .setAuthenticatedUser(user)
-
 Set the authenticated user if you don't use the built-in accounts package.
 
 ```js
-SecurityAuthorization.setAuthenticatedUser(user);
+SecurityAuthorization.isGranted('view', task, user);
 ```
 
 <a name="domain-object-name">

@@ -81,17 +81,6 @@ Tinytest.add('SecurityAuthorization - addRoleVoter', function (test) {
 
 });
 
-Tinytest.add('SecurityAuthorization - setAuthenticatedUser', function (test) {
-
-  SecurityAuthorization.setAuthenticatedUser('user');
-
-  test.equal(
-    SecurityAuthorization._authenticatedUser,
-    'user',
-    'The function setAuthenticatedUser sets the _authenticatedUser.');
-});
-
-
 Tinytest.add('SecurityAuthorization - isGranted', function (test) {
 
   class PostVoter extends AbstractVoter {
@@ -147,19 +136,15 @@ Tinytest.add('SecurityAuthorization - isGranted', function (test) {
   var user = { username: 'test'};
 
   SecurityAuthorization.addVoter(postVoter);
-  SecurityAuthorization.setAuthenticatedUser(null);
   SecurityAuthorization.setStrategy(null);
 
   test.throws(function () {
     SecurityAuthorization.isGranted(['view'], post);
-  }, '"isGranted" function is used outside a method call. ' +
-     'Meteor.userId cannot be invoked.');
-
-  SecurityAuthorization.setAuthenticatedUser(user);
-  //SecurityAuthorization.isGranted(['view'], null);
+  }, 'No user found. Maybe, "isGranted" function is used outside ' +
+     'a method call. Meteor.userId cannot be invoked.');
 
   test.isTrue(
-    SecurityAuthorization.isGranted(['view'], post),
+    SecurityAuthorization.isGranted(['view'], post, user),
     'The function isGranted checks if user has the access to the object.');
 
   SecurityAuthorization.removeVoter(postVoter);

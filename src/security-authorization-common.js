@@ -12,7 +12,7 @@ SecurityAuthorizationCommon = class SecurityAuthorizationCommon {
 
     this._strategy = null;
     this._voters = [];
-    this._authenticatedUser = null;
+    //this._authenticatedUser = null;
 
     // By default, a RoleVoter is added.
     this.addRoleVoter();
@@ -52,13 +52,14 @@ SecurityAuthorizationCommon = class SecurityAuthorizationCommon {
   *
   * @param {mixed}    attributes
   * @param {mixed}    object
+  * @param {mixed}    user
   *
   * @throws no-user-found-exception
   *
   * @return {Boolean}
   */
-  isGranted(attributes, object = null) {
-    
+  isGranted(attributes, object = null, user = null) {
+
     var accessDecisionManager = null;
     if (this._strategy !== null) {
       accessDecisionManager = new AccessDecisionManager(this._voters,
@@ -68,7 +69,7 @@ SecurityAuthorizationCommon = class SecurityAuthorizationCommon {
     }
 
     var authorizationChecker =
-      new AuthorizationChecker(accessDecisionManager, this._authenticatedUser);
+      new AuthorizationChecker(accessDecisionManager, user);
 
     return authorizationChecker.isGranted(attributes, object);
   }
@@ -80,7 +81,7 @@ SecurityAuthorizationCommon = class SecurityAuthorizationCommon {
   *
   * @throws invalid-argument-exception
   */
-  setAuthenticatedUser(user) {
+  /*setAuthenticatedUser(user) {
     if (typeof user === 'undefined') {
       throw new Meteor.Error(
         'invalid-argument-exception',
@@ -88,6 +89,6 @@ SecurityAuthorizationCommon = class SecurityAuthorizationCommon {
     }
 
     this._authenticatedUser = user;
-  }
+  }*/
 
 };

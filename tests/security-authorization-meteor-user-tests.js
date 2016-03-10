@@ -70,7 +70,6 @@ if (Meteor.isServer) {
       SecurityAuthorization.removeAllVoters();
       SecurityAuthorization.addVoter(blogVoter);
       SecurityAuthorization.setStrategy(null);
-      SecurityAuthorization.setAuthenticatedUser(null);
 
       return SecurityAuthorization.isGranted(['view'], blog);
     }

@@ -74,7 +74,7 @@ Tinytest.add('RoleVoter - checking role inside voter', function (test) {
 
       switch (attribute) {
         case this.VIEW:
-          return this._canView();
+          return this._canView(user);
         case this.EDIT:
           return false;
       }
@@ -85,9 +85,9 @@ Tinytest.add('RoleVoter - checking role inside voter', function (test) {
 
     }
 
-    _canView() {
+    _canView(user) {
       // A user with ROLE_ADMIN can always view all posts
-      if (SecurityAuthorization.isGranted(['ROLE_ADMIN'])) {
+      if (SecurityAuthorization.isGranted(['ROLE_ADMIN'], null, user)) {
           return true;
       }
 
@@ -102,7 +102,6 @@ Tinytest.add('RoleVoter - checking role inside voter', function (test) {
   };
 
   var user = { username: 'test', roles: ['ROLE_ADMIN']};
-  SecurityAuthorization.setAuthenticatedUser(user);
 
   // For tests be sure RoleVoter is added.
   SecurityAuthorization.removeAllVoters();
@@ -110,6 +109,6 @@ Tinytest.add('RoleVoter - checking role inside voter', function (test) {
   SecurityAuthorization.addVoter(postVoter);
 
   test.isTrue(
-    SecurityAuthorization.isGranted(['view'], post),
+    SecurityAuthorization.isGranted(['view'], post, user),
     'A user with ROLE_ADMIN can always view all posts.');
 });

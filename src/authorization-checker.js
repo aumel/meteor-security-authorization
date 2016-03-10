@@ -52,8 +52,8 @@ AuthorizationChecker = class AuthorizationChecker {
           // an error is thrown.
           throw new Meteor.Error(
             'no-user-found-exception',
-            '"isGranted" function is used outside a method call. ' +
-            'Meteor.userId cannot be invoked.');
+            'No user found. Maybe, "isGranted" function is used outside '+
+            'a method call. Meteor.userId cannot be invoked.');
         }
 
     }

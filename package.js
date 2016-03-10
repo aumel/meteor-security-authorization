@@ -1,7 +1,7 @@
 // jshint ignore: start
 Package.describe({
   name: 'aumel:security-authorization',
-  version: '1.0.1',
+  version: '2.0.0',
   // Brief, one-line summary of the package.
   summary: 'An authorization security system with voters.',
   // URL to the Git repository containing the source code for this package.
@@ -37,9 +37,6 @@ Package.onUse(function(api) {
   // that the prototypes have been fully populated.
   api.addFiles('src/globals-server.js', 'server');
   api.addFiles('src/globals-client.js', 'client');
-
-  // The helper must be evaluated in last.
-  api.addFiles('src/client/ui-helpers.js', 'client');
 });
 
 Package.onTest(function(api) {
@@ -56,5 +53,4 @@ Package.onTest(function(api) {
   api.addFiles(
     'tests/security-authorization-meteor-user-tests.js',
     ['server', 'client']);
-  api.addFiles('tests/ui-helpers-tests.js', 'client');
 });
