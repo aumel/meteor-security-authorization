@@ -9,7 +9,7 @@ It is inspired by the PHP Symfony framework and the Java Spring framework.
 ## Table of contents
 
 * [Installation](#installation)
-* [Version 2.x](#version2)
+* [Upgrade to version 2.x](#version2)
 * [Overview](#overview)
 * [How to use voters to check users permissions](#how-to-use-voters)
   * [Checking for access](#checking-access)
@@ -40,16 +40,15 @@ To set your authorization logic, you need ECMAScript 2015 features (e.g. class c
 $ meteor add ecmascript
 ```
 <a name="version2">
-## Version 2.x
+## Upgrade to version 2.x
 
+Upgrade from 1.x to 2.x:
 
-Changelog:
+  * `SecurityAuthorization.setAuthenticatedUser` has been removed from the API.
+  * `SecurityAuthorization.isGranted` function accepts the user as an optional parameter when you don’t use the built-in accounts package of Meteor.
+  * The ui-helper `isGranted` for Blaze has been removed.
 
-  * `SecurityAuthorization.setAuthenticatedUser` is removed from the API.
-  * `SecurityAuthorization.isGranted` function accepts the user as optional parameter when you don’t use the built-in account package of Meteor.
-  * The ui-helper `isGranted` for Blaze is removed.
-
-**Note:** Thanks to @monbro for the enhancement about `setAuthenticatedUser`.
+**Note:** Thanks to [@monbro](https://github.com/monbro) for the enhancement about `setAuthenticatedUser`.
 
 <a name="overview">
 ## Overview
