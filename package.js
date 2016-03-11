@@ -15,10 +15,6 @@ Package.onUse(function(api) {
   api.versionsFrom('1.2');
   api.use('ecmascript');
 
-  // If the 'blaze' package is loaded, we'll define some helpers like
-  // {{ isGranted }}.
-  api.use('blaze', 'client');
-
   api.export('AbstractVoter');
   api.export('RoleVoter');
   api.export('SecurityAuthorization');
