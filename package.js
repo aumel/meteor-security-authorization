@@ -1,7 +1,7 @@
 // jshint ignore: start
 Package.describe({
   name: 'aumel:security-authorization',
-  version: '2.0.0',
+  version: '2.0.1',
   // Brief, one-line summary of the package.
   summary: 'An authorization security system with voters.',
   // URL to the Git repository containing the source code for this package.
