@@ -3,6 +3,10 @@ CHANGELOG for SecurityAuthorization
 
 This changelog references the relevant changes (bug, security fixes and new features) done.
 
+* 2.0.1 (2016-03-XX)
+
+  * [enhancement] #7 - Remove dependency with Blaze.
+
 * 2.0.0 (2016-03-10)
 
   * [enhancement] #5 - Remove SecurityAuthorization.setAuthenticatedUser() and refactoring SecurityAuthorization.isGranted() with new optional parameter user.
