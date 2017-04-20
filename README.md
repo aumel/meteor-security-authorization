@@ -126,7 +126,7 @@ class TaskVoter extends AbstractVoter {
     }
 
     // if no subject (null or undefined), return false
-    if (null === subject || 'undefined' !== typeof subject) {
+    if (null === subject || typeof subject !== 'undefined') {
       return false;
     }
 
@@ -331,7 +331,7 @@ SecurityAuthorization.removeAllVoter();
 Add the predefined `Rolevoter` to SecurityAuthorization. By default, this voter is already added. This function is defined for convenience.
 
 ```js
-SecurityAuthorization.addVoter(yourVoter);
+SecurityAuthorization.addRoleVoter();
 ```
 
 
