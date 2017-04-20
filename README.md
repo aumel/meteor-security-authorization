@@ -6,6 +6,7 @@ An authorization security system with voters for Meteor compatible with built-in
 It is inspired by the PHP Symfony framework and the Java Spring framework.
 
 <a name="toc">
+
 ## Table of contents
 
 * [Installation](#installation)
@@ -25,6 +26,7 @@ It is inspired by the PHP Symfony framework and the Java Spring framework.
 * [License](#license)
 
 <a name="installation">
+
 ## Installation
 
 ```sh
@@ -41,11 +43,13 @@ $ meteor add ecmascript
 ```
 
 <a name="upgrade">
+
 ## Upgrade
 
 Make sure you read the [UPGRADE.md](UPGRADE.md) included in the repository for any BC break that you need to be aware of.
 
 <a name="overview">
+
 ## Overview
 
 SecurityAuthorization allows you to centralize your authorization logic. You can check the user permission to access data with custom voters.
@@ -55,11 +59,13 @@ All voters are called each time you use the `isGranted()` function of SecurityAu
 SecurityAuthorization polls all voters and decides to allow or deny access to the resource according to the strategy defined in the application. There are three strategies: *affirmative*, *consensus* or *unanimous*.
 
 <a name="how-to-use-voters">
+
 ## How to use voters to check user permissions
 
 For fine-grained restrictions, you must define custom voters, which are like simple conditional statements.
 
 <a name="checking-access">
+
 ### Checking for access
 
 Imagine you want to check if the current user can edit or view the object. In your `Meteor.methods`, you'll check access with code like this:
@@ -95,6 +101,7 @@ The function `isGranted` calls the voter system.
 In the example, no voter is configured. But you can create your own voter that decides if the current user can *view* or *edit* using whatever logic you want.
 
 <a name="creating-custom-voter">
+
 ### Creating a custom voter
 
 Imagine, you want to define a specific logic. A user can always edit or view his own `Task`. If a `Task` is marked as "public", anyone can view it.
@@ -188,6 +195,7 @@ There are two important functions in this code snippet `_supports()` and `_voteO
 `_voteOnAttribute(attribute, subject, user)` function performs a single access check operation on a given attribute, subject and user. This function is called if `supports()` call returns true. The job of `_voteOnAttribute()` is: return true to allow access and false to deny access.
 
 <a name="configuring-voter">
+
 ### Configuring the voter
 
 After defining your voter, you must configure it. To do this, you add your voter to SecurityAuthorization with `addVoter()` call.
@@ -204,6 +212,7 @@ SecurityAuthorization.addVoter(TaskVoter);
 Now, when you call `isGranted()` with view/edit and a Task object, your voter will be executed and you can control access.
 
 <a name="checking-for-roles">
+
 ### Checking for roles
 
 SecurityAuthorization doesn't provide a role system but only a security authorization layer to check role.
@@ -242,6 +251,7 @@ No need to modify another part of code from the previous example. The function `
 
 
 <a name="changing-the-strategy">
+
 ### Changing the strategy
 
 Generally, only one voter will vote and others will abstain. But, other scenarios may occur with multiple voters. By example, you want to check if the user has the role `ROLE_MEMBER` with one voter and also if he is 18 years old with another voter.
@@ -266,6 +276,7 @@ SecurityAuthorization.setStrategy('consensus');
 
 
 <a name="how-to-use-your-own-user-system">
+
 ## How to use your own user system
 
 If you don't use the built-in accounts package of Meteor or if you use a Model layer over the `Meteor.user()`, SecurityAuthorization provides a solution to hold those situations.
@@ -277,6 +288,7 @@ SecurityAuthorization.isGranted('view', task, user);
 ```
 
 <a name="security-authorization-api">
+
 ## SecurityAuthorization API
 
 This describes the functions available for SecurityAuthorization.
@@ -339,6 +351,7 @@ SecurityAuthorization.isGranted('view', task, user);
 ```
 
 <a name="domain-object-name">
+
 ## Domain object name
 
 You must get the domain object name to determine which voter to apply.
@@ -387,16 +400,19 @@ Task.prototype = {
 ```
 
 <a name="contributing">
+
 ## Contributing
 
 Please make sure to read the [Contributing Guide](CONTRIBUTING.md) before making a pull request.
 
 <a name="changelog">
+
 ## Changelog
 
 Details changes for each release are documented in the [CHANGELOG file](CHANGELOG.md).
 
 <a name="License">
+
 ## License
 
 SecurityAuthorization is released under the [MIT License](LICENSE).
