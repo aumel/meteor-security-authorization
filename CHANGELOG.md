@@ -3,6 +3,10 @@ CHANGELOG for SecurityAuthorization
 
 This changelog references the relevant changes (bug, security fixes and new features) done.
 
+* 2.0.2 (2017-09-27)
+
+  * Update documentation.
+
 * 2.0.1 (2016-03-12)
 
   * [enhancement] #7 - Remove dependency with Blaze.
