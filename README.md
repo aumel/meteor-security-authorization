@@ -5,27 +5,23 @@ An authorization security system with voters for Meteor compatible with built-in
 
 It is inspired by the PHP Symfony framework and the Java Spring framework.
 
-<a name="toc">
-
 ## Table of contents
 
 * [Installation](#installation)
 * [Upgrade](#upgrade)
 * [Overview](#overview)
-* [How to use voters to check users permissions](#how-to-use-voters)
-  * [Checking for access](#checking-access)
-  * [Creating a custom voter](#creating-custom-voter)
-  * [Configuring the voter](#configuring-voter)
+* [How to use voters to check users permissions](#how-to-use-voters-to-check-user-permissions)
+  * [Checking for access](#checking-for-access)
+  * [Creating a custom voter](#creating-a-custom-voter)
+  * [Configuring the voter](#configuring-the-voter)
   * [Checking for roles](#checking-for-roles)
   * [Changing the strategy](#changing-the-strategy)
 * [How to use your own user system](#how-to-use-your-own-user-system)
-* [SecurityAuthorization API](#security-authorization-api)
+* [SecurityAuthorization API](#securityauthorization-api)
 * [Domain object name](#domain-object-name)
 * [Contributing](#contributing)
 * [Changelog](#changelog)
 * [License](#license)
-
-<a name="installation">
 
 ## Installation
 
@@ -42,13 +38,9 @@ To set your authorization logic, you need ECMAScript 2015 features (e.g. class c
 $ meteor add ecmascript
 ```
 
-<a name="upgrade">
-
 ## Upgrade
 
 Make sure you read the [UPGRADE.md](UPGRADE.md) included in the repository for any BC break that you need to be aware of.
-
-<a name="overview">
 
 ## Overview
 
@@ -58,13 +50,9 @@ All voters are called each time you use the `isGranted()` function of SecurityAu
 
 SecurityAuthorization polls all voters and decides to allow or deny access to the resource according to the strategy defined in the application. There are three strategies: *affirmative*, *consensus* or *unanimous*.
 
-<a name="how-to-use-voters">
-
 ## How to use voters to check user permissions
 
 For fine-grained restrictions, you must define custom voters, which are like simple conditional statements.
-
-<a name="checking-access">
 
 ### Checking for access
 
@@ -100,8 +88,6 @@ Meteor.methods({
 The function `isGranted` calls the voter system.
 In the example, no voter is configured. But you can create your own voter that decides if the current user can *view* or *edit* using whatever logic you want.
 
-<a name="creating-custom-voter">
-
 ### Creating a custom voter
 
 Imagine, you want to define a specific logic. A user can always edit or view his own `Task`. If a `Task` is marked as "public", anyone can view it.
@@ -126,7 +112,7 @@ class TaskVoter extends AbstractVoter {
     }
 
     // if no subject (null or undefined), return false
-    if (null === subject || typeof subject !== 'undefined') {
+    if (null == subject) {
       return false;
     }
 
@@ -194,8 +180,6 @@ There are two important functions in this code snippet `_supports()` and `_voteO
 
 `_voteOnAttribute(attribute, subject, user)` function performs a single access check operation on a given attribute, subject and user. This function is called if `supports()` call returns true. The job of `_voteOnAttribute()` is: return true to allow access and false to deny access.
 
-<a name="configuring-voter">
-
 ### Configuring the voter
 
 After defining your voter, you must configure it. To do this, you add your voter to SecurityAuthorization with `addVoter()` call.
@@ -210,8 +194,6 @@ SecurityAuthorization.addVoter(TaskVoter);
 ```
 
 Now, when you call `isGranted()` with view/edit and a Task object, your voter will be executed and you can control access.
-
-<a name="checking-for-roles">
 
 ### Checking for roles
 
@@ -247,11 +229,6 @@ class TaskVoter extends AbstractVoter {
 
 No need to modify another part of code from the previous example. The function `_canView()` calls `_canEdit()` function.
 
-
-
-
-<a name="changing-the-strategy">
-
 ### Changing the strategy
 
 Generally, only one voter will vote and others will abstain. But, other scenarios may occur with multiple voters. By example, you want to check if the user has the role `ROLE_MEMBER` with one voter and also if he is 18 years old with another voter.
@@ -274,9 +251,6 @@ SecurityAuthorization.setStrategy('consensus');
 // ...
 ```
 
-
-<a name="how-to-use-your-own-user-system">
-
 ## How to use your own user system
 
 If you don't use the built-in accounts package of Meteor or if you use a Model layer over the `Meteor.user()`, SecurityAuthorization provides a solution to hold those situations.
@@ -286,8 +260,6 @@ If you have your own users system, pass manually the authenticated user as param
 ```js
 SecurityAuthorization.isGranted('view', task, user);
 ```
-
-<a name="security-authorization-api">
 
 ## SecurityAuthorization API
 
@@ -334,7 +306,6 @@ Add the predefined `Rolevoter` to SecurityAuthorization. By default, this voter 
 SecurityAuthorization.addRoleVoter();
 ```
 
-
 ### .isGranted(attributes, object = null, user = null)
 
 Checks if the attributes are granted against the current authenticated user
@@ -349,8 +320,6 @@ Set the authenticated user if you don't use the built-in accounts package.
 ```js
 SecurityAuthorization.isGranted('view', task, user);
 ```
-
-<a name="domain-object-name">
 
 ## Domain object name
 
@@ -399,19 +368,13 @@ Task.prototype = {
 };
 ```
 
-<a name="contributing">
-
 ## Contributing
 
 Please make sure to read the [Contributing Guide](CONTRIBUTING.md) before making a pull request.
 
-<a name="changelog">
-
 ## Changelog
 
 Details changes for each release are documented in the [CHANGELOG file](CHANGELOG.md).
-
-<a name="License">
 
 ## License
 
